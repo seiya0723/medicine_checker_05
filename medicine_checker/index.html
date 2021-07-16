@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 
@@ -37,6 +38,38 @@
 
     <ul id="search_result" class="search_result">
     </ul>
+
+
+    <div class="control_area">
+        <div class="control_button_area">
+            <div id="csv_download" class="control_button">
+                <i class="fas fa-file-download"></i>
+            </div>
+            <div class="control_tool_tip_topright">CSVダウンロード</div>
+        </div>
+
+        <div class="control_button_area">
+            <div id="config" class="control_button">
+                <i class="fas fa-cogs"></i>
+            </div>
+            <div class="control_tool_tip_topright">設定</div>
+        </div>
+        
+        <div class="control_button_area">
+            <div id="config" class="control_button control_button_success">
+                <i class="fas fa-clone"></i>
+            </div>
+            <div class="control_tool_tip_topright">検索結果を全てスタック</div>
+        </div>
+
+        <div class="control_button_area">
+            <div id="config" class="control_button control_button_danger">
+                <i class="fas fa-trash-alt"></i>
+            </div>
+            <div class="control_tool_tip_topright">全てリムーブ</div>
+        </div>
+
+    </div>
 
     <table class="table">
         <thead class="thead-dark"> 

@@ -16,6 +16,9 @@ window.addEventListener("load" , function (){
     //リムーブ処理
     $(document).on("click",".remove",function(){ $("." + $(this).val()).remove(); });
 
+
+    $("#csv_download").on("click",function(){ create_csv(); });
+
 });
 //検索の処理
 function search(){
@@ -31,6 +34,7 @@ function search(){
     }
 
     let request_keys    = Object.keys(request);
+
 
     //ここでスペースのみの場合は除外
     if (request["search"] === "") {
@@ -123,6 +127,61 @@ function stack(pk){
     $("#table_caution"    ).append("<td class='" + pk + "'>" + caution      + "</td>",);
     $("#table_dosage"     ).append("<td class='" + pk + "'>" + dosage       + "</td>",);
     $("#table_side_effect").append("<td class='" + pk + "'>" + side_effect  + "</td>",);
+
+}
+
+//現在スタックされているデータをCSVに変換してダウンロードする
+function create_csv(){
+
+    let table_names        = $("#table_name        > th ");
+    let table_effects      = $("#table_effect      > td ");
+    let table_cautions     = $("#table_caution     > td ");
+    let table_dosages      = $("#table_dosage      > td ");
+    let table_side_effects = $("#table_side_effect > td ");
+
+    let length  = table_names.length;
+
+    let row     = [];
+    let data    = [];
+
+    for (let i=0;i<length;i++){
+        row.push(table_names.eq(i).text().replace("remove",""));
+        row.push(table_effects.eq(i).text().replace("remove",""));
+        row.push(table_cautions.eq(i).text().replace("remove",""));
+        row.push(table_dosages.eq(i).text().replace("remove",""));
+        row.push(table_side_effects.eq(i).text().replace("remove",""));
+
+        data.push(row);
+        row = []
+    }
+
+    console.log(data);
+
+    //作った二次元配列をCSV文字列に直す。
+    let csv_string  = "";
+    for (let d of data) {
+        csv_string += d.join(",");
+        csv_string += '\r\n';
+    }
+
+    let file_name   = "test.csv";
+
+    //CSVのバイナリデータを作る
+    let blob        = new Blob([csv_string], {type: "text/csv"});
+    let uri         = URL.createObjectURL(blob);
+
+    //リンクタグを作る
+    let link        = document.createElement("a");
+    link.download   = file_name;
+    link.href       = uri;
+
+    //作ったリンクタグをクリックさせる
+    document.body.appendChild(link);
+    link.click();
+
+    //クリックしたら即リンクタグを消す
+    document.body.removeChild(link);
+    delete link;
 
 }
 
